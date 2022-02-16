@@ -1,27 +1,51 @@
 package com.sunglowsys.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
+@Table(name = "hotel_rate_calendar")
 public class HotelRateCalendar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id ;
+
+    @NotNull
     private Integer singleOccupancy ;
+
+    @NotNull
     private Integer doubleOccupancy ;
+
+    @NotNull
     private Integer extraAdultPrice ;
+
+    @NotNull
     private Integer extraChildPrice ;
+
+    @NotNull
     private Integer applicableDays ;
-    private Integer hotelId ;
-    private Integer hotelRoomRateId ;
+
+    @NotNull
+    private Long hotelId ;
+
+    @NotNull
+    private Long hotelRoomRateId ;
 
     public HotelRateCalendar(){}
+
+    public HotelRateCalendar(Long id, Integer singleOccupancy, Integer doubleOccupancy, Integer extraAdultPrice, Integer extraChildPrice, Integer applicableDays, Long hotelId, Long hotelRoomRateId) {
+        this.id = id;
+        this.singleOccupancy = singleOccupancy;
+        this.doubleOccupancy = doubleOccupancy;
+        this.extraAdultPrice = extraAdultPrice;
+        this.extraChildPrice = extraChildPrice;
+        this.applicableDays = applicableDays;
+        this.hotelId = hotelId;
+        this.hotelRoomRateId = hotelRoomRateId;
+    }
 
     public Long getId() {
         return id;
@@ -71,19 +95,19 @@ public class HotelRateCalendar {
         this.applicableDays = applicableDays;
     }
 
-    public Integer getHotelId() {
+    public Long getHotelId() {
         return hotelId;
     }
 
-    public void setHotelId(Integer hotelId) {
+    public void setHotelId(Long hotelId) {
         this.hotelId = hotelId;
     }
 
-    public Integer getHotelRoomRateId() {
+    public Long getHotelRoomRateId() {
         return hotelRoomRateId;
     }
 
-    public void setHotelRoomRateId(Integer hotelRoomRateId) {
+    public void setHotelRoomRateId(Long hotelRoomRateId) {
         this.hotelRoomRateId = hotelRoomRateId;
     }
 

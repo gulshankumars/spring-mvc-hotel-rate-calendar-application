@@ -2,12 +2,20 @@ package com.sunglowsys.service;
 
 import com.sunglowsys.domain.HotelRateCalendar;
 import com.sunglowsys.repository.HotelRateCalendarRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
-public class HotelRateCalendarServiceImpl implements HotelRateCalendarService{
+@Transactional
+public class HotelRateCalendarServiceImpl implements HotelRateCalendarService {
+
+    private final Logger log = LoggerFactory.getLogger(HotelRateCalendarServiceImpl.class);
 
     private final HotelRateCalendarRepository hotelRateCalendarRepository;
 
@@ -15,37 +23,35 @@ public class HotelRateCalendarServiceImpl implements HotelRateCalendarService{
         this.hotelRateCalendarRepository = hotelRateCalendarRepository;
     }
 
-
     @Override
     public HotelRateCalendar save(HotelRateCalendar hotelRateCalendar) {
+        log.debug("Request to save HotelRateCalendar : {}",hotelRateCalendar);
         return hotelRateCalendarRepository.save(hotelRateCalendar);
     }
 
     @Override
-    public HotelRateCalendar update(HotelRateCalendar hotelRateCalendar, Long id) {
-        HotelRateCalendar hotelRateCalendar1 = hotelRateCalendarRepository.findById(id).get();
-        hotelRateCalendar1.setSingleOccupancy(hotelRateCalendar1.getSingleOccupancy());
-        hotelRateCalendar1.setDoubleOccupancy(hotelRateCalendar1.getDoubleOccupancy());
-        hotelRateCalendar1.setExtraAdultPrice(hotelRateCalendar1.getExtraAdultPrice());
-        hotelRateCalendar1.setExtraChildPrice(hotelRateCalendar1.getExtraChildPrice());
-        hotelRateCalendar1.setApplicableDays(hotelRateCalendar1.getApplicableDays());
-        hotelRateCalendar1.setHotelId(hotelRateCalendar1.getHotelId());
-        hotelRateCalendar1.setHotelRoomRateId(hotelRateCalendar1.getHotelRoomRateId());
+    public HotelRateCalendar update(HotelRateCalendar hotelRateCalendar) {
+        log.debug("Request to update HotelRateCalendar : {}", hotelRateCalendar);
         return hotelRateCalendarRepository.save(hotelRateCalendar);
     }
 
     @Override
-    public HotelRateCalendar findById(Long id) {
-        return hotelRateCalendarRepository.findById(id).get();
+    public Optional<HotelRateCalendar> findById(Long id) {
+        log.debug("Request to findById HotelRateCalendar : {}", id);
+        return hotelRateCalendarRepository.findById(id);
     }
 
     @Override
-    public List<HotelRateCalendar> findAll() {
-        return hotelRateCalendarRepository.findAll();
+    public Page<HotelRateCalendar> findAll(Pageable pageable) {
+        log.debug("Request to find HotelRateCalendar : {}",pageable.toString());
+        return hotelRateCalendarRepository.findAll(pageable);
     }
 
     @Override
-    public void delete(HotelRateCalendar hotelRateCalendar, Long id) {
+    public void delete(Long id) {
+
+        log.debug("Request to delete HotelRateCalendar : {}",id);
         hotelRateCalendarRepository.deleteById(id);
     }
+
 }

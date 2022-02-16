@@ -1,19 +1,21 @@
 package com.sunglowsys.service;
 
 import com.sunglowsys.domain.HotelRateCalendar;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface HotelRateCalendarService {
 
-    HotelRateCalendar save(HotelRateCalendar hotelRateCalendar) ;
+    HotelRateCalendar save(HotelRateCalendar hotelRateCalendar);
 
-    HotelRateCalendar update(HotelRateCalendar hotelRateCalendar, Long id) ;
+    HotelRateCalendar update(HotelRateCalendar hotelRateCalendar);
 
-    HotelRateCalendar findById(Long id) ;
+    Page<HotelRateCalendar> findAll(Pageable pageable);
 
-    List<HotelRateCalendar> findAll() ;
+    Optional<HotelRateCalendar> findById(Long id);
 
-    void delete(HotelRateCalendar hotelRateCalendar, Long id) ;
+    void delete(Long id);
 
 }
